@@ -1,0 +1,15 @@
+
+┌────────────────────────────────────────────────────────────────────────────────────────┐
+│                                                                                        │
+│   Welcome to YCode!                           Tips for getting started                 │
+│                                                                                        │
+│          ██       ██                          Enter a message below                    │
+│           ██     ██                           and describe your coding task            │
+│            ██   ██                                                                     │
+│             █████                             Recent activity                          │
+│              ███                              No recent activity                       │
+│              ███                                                                       │
+│                                                                                        │
+│  ${spring.ai.deepseek.chat.model:deepseek-flash}  |  DeepSeek API                                                       │
+└────────────────────────────────────────────────────────────────────────────────────────┘
+
