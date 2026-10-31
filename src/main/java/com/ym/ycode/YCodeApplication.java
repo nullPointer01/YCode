@@ -2,8 +2,11 @@ package com.ym.ycode;
 
 import java.util.Scanner;
 
+import org.springaicommunity.agent.tools.FileSystemTools;
+import org.springaicommunity.agent.tools.ShellTools;
 import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.ai.chat.client.advisor.MessageChatMemoryAdvisor;
+import org.springframework.ai.chat.client.advisor.SimpleLoggerAdvisor;
 import org.springframework.ai.chat.client.advisor.api.Advisor;
 import org.springframework.ai.chat.memory.ChatMemory;
 import org.springframework.ai.deepseek.DeepSeekChatModel;
@@ -22,12 +25,16 @@ public class YCodeApplication {
     }
 
     @Bean
-    CommandLineRunner commandLineRunner(DeepSeekChatModel deepSeekChatModel, ChatMemory chatMemory, SessionMemoryAdvisor sessionMemoryAdvisor) {
+    CommandLineRunner commandLineRunner(DeepSeekChatModel deepSeekChatModel, ChatMemory chatMemory,
+                                        SessionMemoryAdvisor sessionMemoryAdvisor,
+                                        SessionMemoryAdvisor sessionMemorySummarizationAdvisor,
+                                        ToolService toolService) {
         return args -> {
             //对话记忆 advisor(会话拦截器，结构化输入)
             ChatClient chatClient = ChatClient.builder(deepSeekChatModel)
-                    .defaultAdvisors(sessionMemoryAdvisor)
+                    .defaultAdvisors(sessionMemorySummarizationAdvisor, SimpleLoggerAdvisor.builder().build() )
 //                            MessageChatMemoryAdvisor.builder(chatMemory).build())
+                    .defaultTools(ShellTools.builder().build(), FileSystemTools.builder().build())
                     .build();
             // Start the chat loop
             System.out.println("\n我是YCode:.\n");
